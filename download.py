@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import os
 
 # Removes all characters that can not be in a file path
-def clean(var toClean):
+def clean(toClean):
     cleaned = toClean.replace(':', '')
     cleaned = cleaned.replace('/', '')
     cleaned = cleaned.replace('\\', '')
@@ -21,8 +21,10 @@ saveLocation = input();
 saveLocation = saveLocation.replace('C:', '')
 saveLocation = saveLocation.replace('\\', '/')
 
-# Place your search query here
-currentPage = 'https://dl.acm.org/subject/ai?ConceptID=118230&startPage=0&pageSize=50'
+# Asks the user for a link to a search query
+print('')
+print('Enter your search link here ')
+currentPage = 'https://dl.acm.org/action/doSearch?SeriesKey=tos&sortBy=downloaded'
 
 # Loops through search pages until it completes all pages
 while True:
@@ -64,6 +66,8 @@ while True:
                 r2 = requests.get(pdf)
                 with open(fileSaveLocation, 'wb') as f:
                     f.write(r2.content)
+                    f.close()
+                print('Successfully downloaded', title)
             
             
             # Checks if the article has any supplemental material and downloads it
